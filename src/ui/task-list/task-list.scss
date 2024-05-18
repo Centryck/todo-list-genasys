@@ -1,0 +1,9 @@
+.pending-todo-list {
+
+	margin-bottom: 90px;
+	ul {
+		list-style: none;
+		max-height: 300px;
+		overflow-y: auto;
+	}
+}

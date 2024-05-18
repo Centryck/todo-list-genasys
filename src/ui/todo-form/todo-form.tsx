@@ -1,34 +1,52 @@
-import React, { useState, useContext } from "react";
-import { TodosContext } from "../../todo-context";
-import { TodoTask } from "../../domain/entity/todo-task";
-
+import React, { useState } from "react";
 import "./todo-form.scss";
 
-export const TodoForm = () => {
-  const { todos, setTodos } = useContext(TodosContext);
-  const [task, setTask] = useState<string>();
+interface TodoFormProps {
+  onCreateTask: (taskLabel: string) => void;
+  error?: string;
+}
 
-  const handleAddTodo = () => {
-    todos.length
+const TodoForm: React.FC<TodoFormProps> = ({ onCreateTask, error }) => {
+  const [taskLabel, setTaskLabel] = useState<string>("");
+
+  const handleAddTodo = (
+    e: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    e.preventDefault();
+    if (taskLabel) {
+      onCreateTask(taskLabel);
+      setTaskLabel("");
+    }
   };
 
-  const handleKeyUp = (e) => {
-    if (e.keyCode === 13) {
-      handleAddTodo();
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "enter") {
+      handleAddTodo(e);
     }
   };
 
   return (
     <div className="todo-form">
-      <input
-        placeholder="Enter new task"
-        value={task}
-        onChange={(e) => setTask(e.target.value)}
-        onKeyUp={handleKeyUp}
-      />
-      <button type="button" onClick={handleAddTodo}>
-        Add task
-      </button>
+      <form onSubmit={(e) => handleAddTodo(e)}>
+        <input
+          className="todo-form-input"
+          placeholder="Enter new task"
+          value={taskLabel}
+          onChange={(e) => setTaskLabel(e.target.value)}
+          onKeyUp={(e) => handleKeyUp(e)}
+        />
+        <button type="submit" className="todo-form-button">
+          Add task
+        </button>
+      </form>
+
+      {error && (
+        <div className="error">
+          <p>Opps! An error has occurred</p>
+        </div>
+      )}
     </div>
   );
 };
+
+export default TodoForm;

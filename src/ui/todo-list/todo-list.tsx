@@ -1,48 +1,66 @@
-import * as React from "react";
-import { Checkbox } from "../../components/checkbox";
-import { TodosContext } from "../../todo-context";
+import React from "react";
 import "./todo-list.scss";
 import { TodoTask } from "../../domain/entity/todo-task";
-import { useGetTodoTasks } from "../../aplication/use-get-todo-tasks/use-get-todo-tasks";
+import TaskList from "../task-list";
 
-export const TodoList = () => {
-  const { tasks } = useGetTodoTasks()
+interface TodoListProps {
+  tasks?: TodoTask[];
+  isLoading: boolean;
+  error?: string;
+  onDeleteTask: (id: number) => void;
+  onToggleCheck: (id: number, checked: boolean) => void;
+}
 
+const TodoList: React.FC<TodoListProps> = ({
+  tasks,
+  isLoading,
+  error,
+  onDeleteTask,
+  onToggleCheck,
+}) => {
   const handleDelete = (id: number) => {
-    // Fix an ability to delete task
+    onDeleteTask(id);
   };
 
-  const toggleCheck = (id: number) => {
-    // Fix an ability to toggle task
+  const handleToggleCheck = (id: number, checked: boolean) => {
+    onToggleCheck(id, checked);
   };
 
-  const handleKeyUp = (e: { keyCode: number; }, id: number) => {
-    if (e.keyCode === 13) {
-      toggleCheck(id);
-    }
-  };
+  const pendingTasks = tasks?.length
+    ? tasks.filter((todoItem) => todoItem.checked === false)
+    : [];
+  const completedTasks = tasks?.length
+    ? tasks.filter((todoItem) => todoItem.checked === true)
+    : [];
+
+  const pendingTasksTitle = "Things to do:";
+  const noPendingTasks = "Looks like you're absolutely free today!";
+
+  const completedTasksTitle = "Completed tasks:";
+  const noCompletedTasks = "It looks like you haven't completed any tasks yet.";
 
   return (
     <div className="todo-list">
-      <span className="todo-list-title">Things to do:</span>
-      {tasks.length ? (
-        <div className="todo-list-content">
-          {tasks.map((todoItem: TodoTask) => (
-            <Checkbox
-              key={todoItem.id}
-              label={todoItem.label}
-              checked={todoItem.checked}
-              onClick={() => toggleCheck(todoItem.id)}
-              onKeyUp={(e: { keyCode: number; }) => handleKeyUp(e, todoItem.id)}
-              onDelete={() => handleDelete(todoItem.id)}
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="no-todos">
-          Looks like you&apos;re absolutely free today!
-        </div>
-      )}
+      {isLoading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+
+      <TaskList
+        tasks={pendingTasks}
+        title={pendingTasksTitle}
+        onDeleteTask={handleDelete}
+        onToggleCheck={handleToggleCheck}
+        emptyText={noPendingTasks}
+      />
+
+      <TaskList
+        tasks={completedTasks}
+        title={completedTasksTitle}
+        onDeleteTask={handleDelete}
+        onToggleCheck={handleToggleCheck}
+        emptyText={noCompletedTasks}
+      />
     </div>
   );
 };
+
+export default TodoList;

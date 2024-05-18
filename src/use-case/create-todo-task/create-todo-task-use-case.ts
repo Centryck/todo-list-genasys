@@ -3,9 +3,13 @@ import { TodoTaskRepository, CreateTodoTaskParams } from '../../domain/repositor
 import { UseCase } from '../utils';
 
 export class CreateTodoTaskUseCase implements UseCase<CreateTodoTaskParams, Promise<TodoTask>> {
-  constructor(private readonly todoTaskRepository: TodoTaskRepository) {}
+  todoTaskRepository: TodoTaskRepository
+  
+  constructor(todoTaskRepository: TodoTaskRepository) {
+    this.todoTaskRepository = todoTaskRepository;
+  }
 
-  public async execute(params: CreateTodoTaskParams): Promise<TodoTask> {
+    async execute(params: CreateTodoTaskParams): Promise<TodoTask> {
     return this.todoTaskRepository.createTodoTask(params)
   }
 }

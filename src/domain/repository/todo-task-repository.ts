@@ -13,9 +13,14 @@ import { TodoTask } from "../entity/todo-task"
     checked: boolean;
   }
 
+  export interface GetAllData {
+    tasks: TodoTask[];
+    totalTasksCount: number;
+  }
+
   export interface TodoTaskRepository {
     createTodoTask(params: CreateTodoTaskParams): Promise<TodoTask>
-    deleteTodoTask(params: DeleteTodoTaskParams): Promise<void>
-    changeTodoTaskState(params: ChangeTodoTaskStateParams): Promise<TodoTask>
-    getAllTodoTasks(): Promise<TodoTask[]>
+    deleteTodoTask(params: DeleteTodoTaskParams): Promise<undefined>
+    changeTodoTaskState(params: ChangeTodoTaskStateParams): Promise<TodoTask[]>
+    getAllTodoTasks(): Promise<GetAllData>
   }

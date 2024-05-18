@@ -1,15 +1,17 @@
 import * as React from "react";
 import "./todo-results.scss";
 
-export const TodoResults = () => {
-  const calculateChecked = () => {
-    // Fix an ability to calculate completed tasks
-  };
+interface TodoResultsProps {
+  totalTaskCount: number;
+}
 
+const TodoResults: React.FC<TodoResultsProps> = ({ totalTaskCount }) => {
   return (
     <div className="todo-results">
-      Done:
-      {calculateChecked()}
+      <span>Total tasks created:</span>
+      <p>{totalTaskCount}</p>
     </div>
   );
 };
+
+export default TodoResults;

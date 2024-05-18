@@ -1,15 +1,15 @@
 import { TodoTask } from '../../domain/entity/todo-task';
-import { TodoTaskRepository } from '../../domain/repository/todo-task-repository';
+import { GetAllData, TodoTaskRepository } from '../../domain/repository/todo-task-repository';
 import { UseCase } from '../utils';
 
-export class GetAllTodoTasksUseCase implements UseCase<undefined, Promise<TodoTask[]>> {
+export class GetAllTodoTasksUseCase implements UseCase<undefined, Promise<GetAllData>> {
   todoTaskRepository: TodoTaskRepository;
 
   constructor(todoTaskRepository: TodoTaskRepository) {
     this.todoTaskRepository = todoTaskRepository;
   }
 
-  async execute(): Promise<TodoTask[]> {
+  async execute(): Promise<GetAllData> {
     return this.todoTaskRepository.getAllTodoTasks()
   }
 }
