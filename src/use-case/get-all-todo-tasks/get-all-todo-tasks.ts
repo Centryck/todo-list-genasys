@@ -1,4 +1,3 @@
-import { TodoTask } from '../../domain/entity/todo-task';
 import { GetAllData, TodoTaskRepository } from '../../domain/repository/todo-task-repository';
 import { UseCase } from '../utils';
 

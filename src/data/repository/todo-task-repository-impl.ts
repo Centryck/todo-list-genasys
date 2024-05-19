@@ -16,7 +16,7 @@ const getTasksFromLocalStorage = (): TodoTask[] => {
 };
 
 const getTotalTasksCountFromLocalStorage = (): number => {
-  if (localStorage.getItem("tasks")) {
+  if (localStorage.getItem("totalTasksCount")) {
     return JSON.parse(localStorage.getItem("totalTasksCount") ?? "");
   }
 

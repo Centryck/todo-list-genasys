@@ -17,7 +17,7 @@ interface UseChangeTodoTaskState {
   ) => Promise<TodoTask[] | undefined>;
 }
 
-export const useChangeTodoTask = (): UseChangeTodoTaskState => {
+export const useChangeTodoTaskState = (): UseChangeTodoTaskState => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
 
@@ -26,7 +26,7 @@ export const useChangeTodoTask = (): UseChangeTodoTaskState => {
 
     return changeTodoTaskStateUseCase
       .execute(props)
-      .then((updatedTasks) => {
+      ?.then((updatedTasks) => {
         return updatedTasks;
       })
       .catch((err) => {

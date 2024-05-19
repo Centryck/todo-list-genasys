@@ -23,7 +23,7 @@ export const useGetTodoTasks = (): UseGetTodoTasksReturn => {
     const getTodoTasks = async () => {
       getTodoTasksUseCase
         .execute()
-        .then((data) => {
+        ?.then((data) => {
           setTasks(data.tasks);
           setTotalTasks(data.totalTasksCount);
         })

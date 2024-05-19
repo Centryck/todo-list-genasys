@@ -6,7 +6,7 @@ import { useGetTodoTasks } from "../../aplication/use-get-todo-tasks/use-get-tod
 import { TodoTask } from "../../domain/entity/todo-task";
 import { useDeleteTodoTask } from "../../aplication/use-delete-todo-task/use-delete-todo-task";
 import { useCreateTodoTask } from "../../aplication/use-create-todo-task/use-create-todo-task";
-import { useChangeTodoTask } from "../../aplication/use-change-todo-task-state/use-change-todo-task-state";
+import { useChangeTodoTaskState } from "../../aplication/use-change-todo-task-state/use-change-todo-task-state";
 import "./todo-list-page.scss";
 
 const TodoListPage = () => {
@@ -27,10 +27,10 @@ const TodoListPage = () => {
   } = useCreateTodoTask();
 
   const { isLoading: isLoadingChangeStateProcess, changeTodoTaskState } =
-    useChangeTodoTask();
+    useChangeTodoTaskState();
 
   const [currentTasks, setCurrentTasks] = useState<TodoTask[]>([]);
-  const [totalTaskCount, setTotalTasksCount] = useState<number>(0);
+  const [totalTasksCount, setTotalTasksCount] = useState<number>(0);
 
   const isLoading =
     isLoadingTasks ||
@@ -50,7 +50,7 @@ const TodoListPage = () => {
 
     if (createdTask) {
       setCurrentTasks([...currentTasks, createdTask]);
-      setTotalTasksCount(totalTaskCount + 1);
+      setTotalTasksCount(totalTasksCount + 1);
     }
   };
 
@@ -69,7 +69,7 @@ const TodoListPage = () => {
   };
 
   return (
-    <div className="todo-list-page">
+    <div className="todo-list-page" data-testid={"todo-list-page"}>
       <div className="todo-list-page-body">
         <TodoForm
           onCreateTask={(taskLabel: string) => handleCreateTask(taskLabel)}
@@ -87,7 +87,7 @@ const TodoListPage = () => {
           />
 
           <div className="todo-list-page-total-count">
-            <TodoResults totalTaskCount={totalTaskCount} />
+            <TodoResults totalTaskCount={totalTasksCount} />
           </div>
         </div>
       </div>

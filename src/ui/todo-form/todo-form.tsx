@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./todo-form.scss";
 
-interface TodoFormProps {
+export interface TodoFormProps {
   onCreateTask: (taskLabel: string) => void;
   error?: string;
 }
@@ -26,7 +26,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ onCreateTask, error }) => {
   };
 
   return (
-    <div className="todo-form">
+    <div className="todo-form" data-testid={"todo-form-component"}>
       <form onSubmit={(e) => handleAddTodo(e)}>
         <input
           className="todo-form-input"
@@ -42,7 +42,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ onCreateTask, error }) => {
 
       {error && (
         <div className="error">
-          <p>Opps! An error has occurred</p>
+          <p>Oops! An error has occurred</p>
         </div>
       )}
     </div>

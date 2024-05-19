@@ -24,7 +24,7 @@ export const useCreateTodoTask = (): UseCreateTodoTaskReturn => {
 
     return createTodoTaskUseCase
       .execute(props)
-      .then((createdTask) => {
+      ?.then((createdTask) => {
         return createdTask;
       })
       .catch((err) => {

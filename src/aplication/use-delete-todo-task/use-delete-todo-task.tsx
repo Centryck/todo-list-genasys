@@ -21,7 +21,7 @@ export const useDeleteTodoTask = (): UseDeleteTodoTaskReturn => {
 
     return deleteTodoTaskUseCase
       .execute(props)
-      .catch((err) => {
+      ?.catch((err) => {
         setError("Error on deleteTodoTask" + err);
         return undefined;
       })

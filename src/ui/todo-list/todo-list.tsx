@@ -3,7 +3,7 @@ import "./todo-list.scss";
 import { TodoTask } from "../../domain/entity/todo-task";
 import TaskList from "../task-list";
 
-interface TodoListProps {
+export interface TodoListProps {
   tasks?: TodoTask[];
   isLoading: boolean;
   error?: string;
@@ -29,6 +29,7 @@ const TodoList: React.FC<TodoListProps> = ({
   const pendingTasks = tasks?.length
     ? tasks.filter((todoItem) => todoItem.checked === false)
     : [];
+
   const completedTasks = tasks?.length
     ? tasks.filter((todoItem) => todoItem.checked === true)
     : [];
@@ -40,7 +41,7 @@ const TodoList: React.FC<TodoListProps> = ({
   const noCompletedTasks = "It looks like you haven't completed any tasks yet.";
 
   return (
-    <div className="todo-list">
+    <div className="todo-list" data-testid={"todo-list-component"}>
       {isLoading && <p>Loading...</p>}
       {error && <p>{error}</p>}
 

@@ -3,7 +3,7 @@ import Checkbox from "../checkbox/checkbox";
 import "./task-list.scss";
 import { TodoTask } from "../../domain/entity/todo-task";
 
-interface TaskListProps {
+export interface TaskListProps {
   tasks: TodoTask[];
   title: string;
   emptyText: string;

@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./checkbox.scss";
 
-interface CheckboxProps {
+export interface CheckboxProps {
   onClick: () => void;
   checked: boolean;
   onDelete: () => void;
@@ -23,13 +23,14 @@ const Checkbox: React.FC<CheckboxProps> = ({
   };
 
   return (
-    <div className="checkbox">
+    <div className="checkbox" data-testid={"checkbox-item"}>
       <label aria-checked className="checkbox-content">
         <input
           tabIndex={-1}
           type="checkbox"
           checked={checked}
           onChange={handleClick}
+          data-testid={"checkbox-button"}
         />
         <span className={checked ? "checkbox-checked" : ""}>{label}</span>
       </label>
@@ -37,6 +38,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         type="button"
         className="checkbox-delete"
         onClick={() => deleteElement()}
+        data-testid={"delete-button"}
       >
         x
       </button>
