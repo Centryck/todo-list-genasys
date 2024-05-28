@@ -1,4 +1,4 @@
-# todo-list (with TypeScript and Clean Arquitecture)
+# todo-list (using TypeScript and Clean Arquitecture)
 
 ## Available Scripts
 
