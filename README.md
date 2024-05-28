@@ -1,4 +1,4 @@
-# todo-list-genasys
+# todo-list (with TypeScript and Clean Arquitecture)
 
 ## Available Scripts
 
